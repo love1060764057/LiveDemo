@@ -1,0 +1,59 @@
+<template>
+    <view>
+        <live-pusher class="livePusher-top" id="livePusher"  :beauty="beauty"  :url="url" :enable-camera="enableCamera" mode="FHD"></live-pusher>
+        <button @click="startLive">开始直播</button>
+        <button @click="stopLive">结束直播</button>
+		<button @click="startBeauty">开启美颜</button>
+		<button @click="stopBeauty">开启美颜</button>
+    </view>
+</template>
+
+<script>
+	export default {
+        data() {
+            return {
+                url: 'rtmp://192.168.1.93/live/1',
+                enableCamera: true,
+                context: null,
+				beauty : 0,
+            };
+        },
+        onReady() {
+            this.context = uni.createLivePusherContext('livePusher', this);
+            // this.context.switchCamera() // 摄像头切换（切换为后置）
+            this.context.startPreview() // 摄像头预览 （不加会黑屏）
+        },
+        methods: {
+            startLive() {
+                this.context.start({
+                    success: (res) => {
+                        console.log('livePusher.start:' + JSON.stringify(res));
+                    }
+                });
+            },
+            stopLive() {
+                this.context.stop({
+                    success: (res) => {
+                        console.log('livePusher.stop:'+JSON.stringify(res));
+						this.context.stopPreview() // 关闭摄像头预览
+                    }
+                });
+            },
+			startBeauty() {
+				this.beauty = 9;
+			},
+			stopBeauty() {
+				this.beauty = 0;
+			}
+        }
+	}
+
+</script>
+
+<style>
+.livePusher-top{
+	background-color:white;
+	width: 750rpx;
+	height: 750rpx;
+}
+</style>
