@@ -1,50 +1,95 @@
 <template>
     <view>
-        <live-pusher class="livePusher-top" id="livePusher"  :beauty="beauty"  :url="url" :enable-camera="enableCamera" mode="FHD"></live-pusher>
-        <button @click="startLive">开始直播</button>
-        <button @click="stopLive">结束直播</button>
-		<button @click="startBeauty">开启美颜</button>
-		<button @click="stopBeauty">开启美颜</button>
-    </view>
+        <live-pusher class="livePusher-top" id="livePusher" @statechange="statechange"  :beauty="beauty" :whiteness="whiteness"  :url="url" :enable-camera="enableCamera" mode="FHD"></live-pusher>
+        <button v-if="flag" @click="startLive">开始直播</button>
+        <button v-if="!flag" @click="stopLive">结束直播</button>
+		<button  @click="pauseLive">暂停直播</button>
+		<button  @click="resumeLive">恢复直播</button>
+		<view class="uni-title">美颜</view>
+		<slider min="0" max="9" value="0" @change="sliderChangeBeauty" activeColor="#FFCC33" backgroundColor="#000000" block-color="#8A6DE9" block-size="20" show-value />
+		<view class="uni-title">美白</view>
+		<slider min="0" max="9" value="0" @change="sliderChangeWhiteness" activeColor="#FFCC33" backgroundColor="#000000" block-color="#8A6DE9" block-size="20" show-value />
+	</view>
 </template>
 
 <script>
 	export default {
         data() {
             return {
-                url: 'rtmp://192.168.1.93/live/1',
-                enableCamera: true,
+                url: 'rtmp://192.168.1.93/live/1',//推流地址
+                enableCamera: true,//开启摄像头
                 context: null,
-				beauty : 0,
+				beauty : 0,//美颜值
+				whiteness : 0 ,//美白值
+				flag : true,
             };
         },
         onReady() {
             this.context = uni.createLivePusherContext('livePusher', this);
             // this.context.switchCamera() // 摄像头切换（切换为后置）
-            this.context.startPreview() // 摄像头预览 （不加会黑屏）
+			setTimeout(()=>{
+				this.context.startPreview() // 摄像头预览 （不加会黑屏）
+			},1000);
+            
         },
         methods: {
+			//开始推流
             startLive() {
                 this.context.start({
                     success: (res) => {
+						this.flag=!this.flag;
                         console.log('livePusher.start:' + JSON.stringify(res));
-                    }
+                    },
+					fail: (err)=>{
+						console.log("livePusher失败:"+JSON.stringify(err));
+					},
+					complete:(res)=>{
+						console.log("livePusher执行完成:"+JSON.stringify(res));
+					}
                 });
             },
+			//停止推流
             stopLive() {
                 this.context.stop({
                     success: (res) => {
+						this.flag=!this.flag;
                         console.log('livePusher.stop:'+JSON.stringify(res));
-						this.context.stopPreview() // 关闭摄像头预览
+						this.context.stopPreview(); // 关闭摄像头预览
                     }
                 });
             },
-			startBeauty() {
-				this.beauty = 9;
+			//暂停推流
+			pauseLive(){
+				this.context.pause({
+					success: (res)=>{
+						console.log('livePusher.pause:'+JSON.stringify(res));
+					}
+				});
+				
 			},
-			stopBeauty() {
-				this.beauty = 0;
+			//恢复推流
+			resumeLive(){
+				this.context.resume({
+					success: (res)=>{
+						console.log('livePusher.resume:'+JSON.stringify(res));
+					}
+				});
+			},
+			//设置美颜
+			sliderChangeBeauty(e){
+				this.beauty = e.detail.value;
+				console.log("美颜值改变"+e.detail.value);
+			},
+			//设置美白
+			sliderChangeWhiteness(e){
+				this.whiteness = e.detail.value;
+				console.log("美白值改变"+e.detail.value);
+			},
+			//状态改变数据
+			statechange(e){
+				console.log("状态"+JSON.stringify(e));
 			}
+			
         }
 	}
 
