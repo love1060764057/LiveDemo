@@ -1,8 +1,8 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([["app-service"],[
 /* 0 */
-/*!************************************************************!*\
-  !*** D:/HBuilderX/HBuilderX/HBuilderProjects/Live/main.js ***!
-  \************************************************************/
+/*!****************************************************************!*\
+  !*** D:/HBuilderX/HBuilderX/HBuilderProjects/LiveDemo/main.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11,9 +11,9 @@ eval("__webpack_require__(/*! uni-pages */ 1);var _App = _interopRequireDefault(
 
 /***/ }),
 /* 1 */
-/*!***************************************************************!*\
-  !*** D:/HBuilderX/HBuilderX/HBuilderProjects/Live/pages.json ***!
-  \***************************************************************/
+/*!*******************************************************************!*\
+  !*** D:/HBuilderX/HBuilderX/HBuilderProjects/LiveDemo/pages.json ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -36,9 +36,9 @@ if (uni.restoreGlobal) {
 
 /***/ }),
 /* 2 */
-/*!************************************************************!*\
-  !*** D:/HBuilderX/HBuilderX/HBuilderProjects/Live/App.vue ***!
-  \************************************************************/
+/*!****************************************************************!*\
+  !*** D:/HBuilderX/HBuilderX/HBuilderProjects/LiveDemo/App.vue ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -47,9 +47,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _App
 
 /***/ }),
 /* 3 */
-/*!*************************************************************************************!*\
-  !*** D:/HBuilderX/HBuilderX/HBuilderProjects/Live/App.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/HBuilderX/HBuilderX/HBuilderProjects/LiveDemo/App.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _plu
 
 /***/ }),
 /* 4 */
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/using-components.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!D:/HBuilderX/HBuilderX/HBuilderProjects/Live/App.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/using-components.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!D:/HBuilderX/HBuilderX/HBuilderProjects/LiveDemo/App.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

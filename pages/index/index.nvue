@@ -16,7 +16,7 @@
 	export default {
         data() {
             return {
-                url: 'rtmp://192.168.1.93/live/1',//推流地址
+                url: 'rtmp://192.168.5.104/live/1',//推流地址
                 enableCamera: true,//开启摄像头
                 context: null,
 				beauty : 0,//美颜值
@@ -87,7 +87,7 @@
 			},
 			//状态改变数据
 			statechange(e){
-				console.log("状态"+JSON.stringify(e));
+				console.log("状态"+e.detail.code+e.detail.message);
 			}
 			
         }
@@ -98,7 +98,6 @@
 <style>
 .livePusher-top{
 	background-color:white;
-	width: 750rpx;
-	height: 750rpx;
+	
 }
 </style>

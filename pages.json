@@ -10,7 +10,7 @@
             "path" : "pages/live/live",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "直播列表",
+                "navigationBarTitleText": "直播中心",
                 "enablePullDownRefresh": false
             }
             
@@ -33,7 +33,7 @@
 	        "text": "创建直播"
 	    }, {
 	        "pagePath": "pages/live/live",
-	        "text": "直播列表"
+	        "text": "直播中心"
 	    }]
 	}
 }
