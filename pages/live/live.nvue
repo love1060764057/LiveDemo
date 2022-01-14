@@ -6,21 +6,21 @@
 		        <uni-th align="center">客户端ID</uni-th>
 		        <uni-th align="center">客户端IP</uni-th>
 		        <uni-th align="center">类型</uni-th>
-				<uni-th align="left">操作</uni-th>
+				<uni-th align="center">操作</uni-th>
 		    </uni-tr>
 		    <!-- 表格数据行 -->
 		    <uni-tr v-for="(list,index) in liveList">
-		        <uni-td>{{list.id}}</uni-td>
+		        <uni-td align="center">{{list.id}}</uni-td>
 		        <uni-td>{{list.ip}}</uni-td>
 		        <uni-td>{{list.type}}</uni-td>
 				<uni-td>
-					<button class="mini-btn" type="warn" size="mini">踢出</button>
+					<button @click="tichu(list.id,index)" class="mini-btn" type="warn" size="mini">踢出</button>
 				</uni-td>
 		    </uni-tr>
 		    
 		
 		</uni-table>
-		<button  @click="getData">获取客户端</button>
+		
 	</view>
 </template>
 
@@ -29,33 +29,43 @@
 	export default {
 		data() {
 			return {
+				//定义客户端列表
 				liveList : null,
 			}
 		},
 		onReady() {
-			uni.request({
-				url:"http://192.168.5.104:1985/api/v1/clients",
-				success: (res) => {
-				        console.log(res.data.clients);
-						this.liveList = res.data.clients;
-						console.log(JSON.stringify(this.liveList));
-						
-				    },
-				fail: (err) =>{
-					console.log(err.data);
-					console.log("失败");
-				}
-			})
-		},
-		methods: {
-			getData(){
+			// 每秒更新客户端列表数据
+			setInterval(()=>{
 				uni.request({
 					url:"http://192.168.5.104:1985/api/v1/clients",
 					success: (res) => {
-					        console.log(res.data.clients);
+					        // console.log(res.data.clients);
 							this.liveList = res.data.clients;
-							console.log(JSON.stringify(this.liveList));
+							// console.log(JSON.stringify(this.liveList));
 							
+					    },
+					fail: (err) =>{
+						console.log(err.data);
+						console.log("失败");
+					}
+				})
+			},1000)
+			
+		},
+		methods: {
+			tichu(clientID,index){
+				console.log("clientID:"+clientID);
+				console.log("index:"+index);
+				uni.request({
+					url:"http://192.168.5.104:1985/api/v1/clients/"+clientID,
+					method:'DELETE',
+					success: (res) => {
+					        
+							console.log(JSON.stringify(res.data));
+							console.info(JSON.stringify(res.data));
+							if(res.data.code==0){
+								this.liveList.splice(index,1);
+							}
 					    },
 					fail: (err) =>{
 						console.log(err.data);
