@@ -9,32 +9,15 @@
 				<uni-th align="left">操作</uni-th>
 		    </uni-tr>
 		    <!-- 表格数据行 -->
-		    <uni-tr>
-		        <uni-td>2020-10-20</uni-td>
-		        <uni-td>Jeson</uni-td>
-		        <uni-td>北京市海淀区</uni-td>
+		    <uni-tr v-for="(list,index) in liveList">
+		        <uni-td>{{list.id}}</uni-td>
+		        <uni-td>{{list.ip}}</uni-td>
+		        <uni-td>{{list.type}}</uni-td>
 				<uni-td>
 					<button class="mini-btn" type="warn" size="mini">踢出</button>
 				</uni-td>
 		    </uni-tr>
-		    <uni-tr>
-		        <uni-td>2020-10-21</uni-td>
-		        <uni-td>HanMeiMei</uni-td>
-		        <uni-td>北京市海淀区</uni-td>
-				<uni-td>北京市海淀区</uni-td>
-		    </uni-tr>
-		    <uni-tr>
-		        <uni-td>2020-10-22</uni-td>
-		        <uni-td>LiLei</uni-td>
-		        <uni-td>北京市海淀区</uni-td>
-				<uni-td>北京市海淀区</uni-td>
-		    </uni-tr>
-		    <uni-tr>
-		        <uni-td>2020-10-23</uni-td>
-		        <uni-td>Danner</uni-td>
-		        <uni-td>北京市海淀区</uni-td>
-				<uni-td>北京市海淀区</uni-td>
-		    </uni-tr>
+		    
 		
 		</uni-table>
 		<button  @click="getData">获取客户端</button>
@@ -46,17 +29,33 @@
 	export default {
 		data() {
 			return {
-				
+				liveList : null,
 			}
+		},
+		onReady() {
+			uni.request({
+				url:"http://192.168.5.104:1985/api/v1/clients",
+				success: (res) => {
+				        console.log(res.data.clients);
+						this.liveList = res.data.clients;
+						console.log(JSON.stringify(this.liveList));
+						
+				    },
+				fail: (err) =>{
+					console.log(err.data);
+					console.log("失败");
+				}
+			})
 		},
 		methods: {
 			getData(){
 				uni.request({
 					url:"http://192.168.5.104:1985/api/v1/clients",
 					success: (res) => {
-					        console.log(res.data.clients[0]);
-							console.log("成功");
-					        this.text = 'request success';
+					        console.log(res.data.clients);
+							this.liveList = res.data.clients;
+							console.log(JSON.stringify(this.liveList));
+							
 					    },
 					fail: (err) =>{
 						console.log(err.data);
