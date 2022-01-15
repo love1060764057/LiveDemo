@@ -27,6 +27,8 @@
 				whiteness : 0 ,//美白值
 				flag : true,
 				message : null,//提示消息
+				date : null,//定义时间
+				dateStr : null
             };
         },
         onReady() {
@@ -104,8 +106,17 @@
 			statechange(e){
 				console.log("状态"+e.detail.code+e.detail.message);
 				if(e.detail.code==3005){//TCP通道断开
+				this.date = new Date();
+				this.dateStr = this.date.getFullYear()+":"
+							+this.date.getMonth()+1+":"
+							+this.date.getDate()+":"
+							+this.date.getHours()+":"
+							+this.date.getMinutes()+":"
+							+this.date.getSeconds();
+				console.log(this.dateStr);
+					
 					this.flag = true;
-					this.message = "网络断开,正在重新连接";
+					this.message = this.dateStr+"网络断开,正在重新连接";
 					this.open();
 				}if(e.detail.code==1102){//启动网络重连
 					
