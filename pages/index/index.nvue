@@ -9,6 +9,10 @@
 		<slider min="0" max="9" value="0" @change="sliderChangeBeauty" activeColor="#FFCC33" backgroundColor="#000000" block-color="#8A6DE9" block-size="20" show-value />
 		<view class="uni-title">美白</view>
 		<slider min="0" max="9" value="0" @change="sliderChangeWhiteness" activeColor="#FFCC33" backgroundColor="#000000" block-color="#8A6DE9" block-size="20" show-value />
+		
+		<uni-popup ref="popup" :mask-click="false" type="message">
+			<uni-popup-message  type="warn" :message="message" :duration="0"></uni-popup-message>
+		</uni-popup>
 	</view>
 </template>
 
@@ -22,6 +26,7 @@
 				beauty : 0,//美颜值
 				whiteness : 0 ,//美白值
 				flag : true,
+				message : null,//提示消息
             };
         },
         onReady() {
@@ -85,9 +90,44 @@
 				this.whiteness = e.detail.value;
 				console.log("美白值改变"+e.detail.value);
 			},
-			//状态改变数据
+			//状态改变数据，部分状态码如下：
+			//1001:连接RTMP服务器成功
+			//1002：RTMP开始推流
+			//1003：打开摄像头成功
+			//1007：首帧画面采集完成
+			//1008：启动硬编
+			//1101：上行带宽不足，数据发送不及时
+			//1102：启动网络重连
+			//3004：UNKNOWN
+			//3005：tcp通道发送失败 错误码[-4]
+			//-1307：所有IP都已经尝试失败,可以放弃治疗
 			statechange(e){
 				console.log("状态"+e.detail.code+e.detail.message);
+				if(e.detail.code==3005){//TCP通道断开
+					this.flag = true;
+					this.message = "网络断开,正在重新连接";
+					this.open();
+				}if(e.detail.code==1102){//启动网络重连
+					
+				}if(e.detail.code==1001){//已经连接RTMO服务器
+					// this.close();
+					// this.message = "已连接服务器";
+					// this.open();
+					
+				}if(e.detail.code==1002){//RTMP开始推流
+					this.flag = false;
+					this.close();
+				}if(e.detail.code==-1307){//重连失败
+					this.close();
+					this.message = "重连失败";
+					this.open();
+				}
+			},
+			open() {
+			        this.$refs.popup.open('top')
+			},
+			close() {
+			        this.$refs.popup.close()
 			}
 			
         }

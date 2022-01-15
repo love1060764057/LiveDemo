@@ -3,17 +3,17 @@
 		<uni-table border stripe emptyText="暂无更多数据" >
 		    <!-- 表头行 -->
 		    <uni-tr>
-		        <uni-th align="center">客户端ID</uni-th>
-		        <uni-th align="center">客户端IP</uni-th>
-		        <uni-th align="center">类型</uni-th>
-				<uni-th align="center">操作</uni-th>
+		        <uni-th  align="center">客户端ID</uni-th>
+		        <uni-th  align="center">客户端IP</uni-th>
+		        <uni-th  align="center">类型</uni-th>
+				<uni-th  align="center">操作</uni-th>
 		    </uni-tr>
 		    <!-- 表格数据行 -->
 		    <uni-tr v-for="(list,index) in liveList">
 		        <uni-td align="center">{{list.id}}</uni-td>
-		        <uni-td>{{list.ip}}</uni-td>
-		        <uni-td>{{list.type}}</uni-td>
-				<uni-td>
+		        <uni-td align="center">{{list.ip}}</uni-td>
+		        <uni-td align="center">{{list.type}}</uni-td>
+				<uni-td align="center">
 					<button @click="tichu(list.id,index)" class="mini-btn" type="warn" size="mini">踢出</button>
 				</uni-td>
 		    </uni-tr>
