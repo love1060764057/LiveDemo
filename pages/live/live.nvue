@@ -39,10 +39,7 @@
 				uni.request({
 					url:"http://192.168.5.104:1985/api/v1/clients",
 					success: (res) => {
-					        // console.log(res.data.clients);
 							this.liveList = res.data.clients;
-							// console.log(JSON.stringify(this.liveList));
-							
 					    },
 					fail: (err) =>{
 						console.log(err.data);
@@ -54,15 +51,10 @@
 		},
 		methods: {
 			tichu(clientID,index){
-				console.log("clientID:"+clientID);
-				console.log("index:"+index);
 				uni.request({
 					url:"http://192.168.5.104:1985/api/v1/clients/"+clientID,
 					method:'DELETE',
 					success: (res) => {
-					        
-							console.log(JSON.stringify(res.data));
-							console.info(JSON.stringify(res.data));
 							if(res.data.code==0){
 								this.liveList.splice(index,1);
 							}
